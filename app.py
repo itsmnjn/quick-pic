@@ -5,11 +5,5 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-def return1():
-    return 1
-
-def return0():
-    return 0
-
-def return2():
-    return 2
+def fun():
+    fun()
