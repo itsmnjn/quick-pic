@@ -7,3 +7,6 @@ def hello():
 
 def fun():
     fun()
+
+def fun2():
+    fun2()
