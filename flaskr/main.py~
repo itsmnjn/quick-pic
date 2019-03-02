@@ -16,8 +16,8 @@ def connect(id):
 
 @app.route("/upload/<id>")
 def upload(id):
+	mongo.save_file
 	file = request.files["inputImages"]
-	mongo.save_file(id+"1",
 
 if __name__ == "__main__":
 	app.run(debug=True)
