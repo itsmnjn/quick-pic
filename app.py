@@ -7,3 +7,5 @@ def hello():
 
 def return1():
     return 1
+def return0():
+    return 0
