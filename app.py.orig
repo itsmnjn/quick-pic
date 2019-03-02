@@ -7,9 +7,11 @@ def hello():
 
 def return1():
     return 1
-
+<<<<<<< HEAD
 def return0():
     return 0
+=======
 
 def return2():
     return 2
+>>>>>>> b60c578b98bb77c419adbd116cdf420cc83da56b
