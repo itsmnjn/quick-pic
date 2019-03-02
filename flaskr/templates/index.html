@@ -9,26 +9,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script>
     window.onload=function(){
-      var submitBtn = document.getElementById("formSubmit");
+      var submitBtn = document.getElementById("form");
       var path = window.location.pathname;
-      console.log(window.location)
+      //console.log(window.location)
       path = path.substring(6,path.length);
-      console.log(path);
+      //console.log(path);
       submitBtn.action = "/upload/"+path;
     }
 
   </script>
 </head>
-<form class="md-form" id="formSubmit" method = "POST">
-  <div class="file-field">
-    <div class="btn btn-primary btn-sm float-left">
-      <span>Choose file</span>
-      <input type="file">
-    </div>
-    <div class="file-path-wrapper">
-      <input class="file-path validate" type="image" placeholder="Upload your file" name = "inputImages">
-    </div>
-  </div>
-</form>
+<form method=post action="/upload/aadsfjkl" id="form" enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
 </body>
 </html>

@@ -18,9 +18,10 @@ def connect(id):
 
 @app.route("/upload/<id>",methods=["POST"])
 def upload(id):
-	file = request.files["inputImages"]
-	return file.filename
+	file = request.files["file"]
 	mongo.save_file(id+str(uuid.uuid4()),file)
+	return "uploaded"
+	
 
 if __name__ == "__main__":
 	app.run(debug=True)
