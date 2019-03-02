@@ -7,14 +7,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-</head>
-<body onready = "updateSubmit()">
-<script>
-function updateSubmit(){
-  console.log(window.location.pathname);
-}
+  <script>
+    window.onload=function(){
+      var submitBtn = document.getElementById("formSubmit");
+      var path = window.location.pathname;
+      console.log(window.location)
+      path = path.substring(6,path.length);
+      console.log(path);
+      submitBtn.action = "/upload/"+path;
+    }
 
-</script>
+  </script>
+</head>
 <form class="md-form" id="formSubmit">
   <div class="file-field">
     <div class="btn btn-primary btn-sm float-left">
