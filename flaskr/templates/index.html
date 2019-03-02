@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web Interface</title>
+	  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onready = "updateSubmit()">
+<script>
+function updateSubmit(){
+  console.log(window.location.pathname);
+}
+
+</script>
+<form class="md-form" id="formSubmit">
+  <div class="file-field">
+    <div class="btn btn-primary btn-sm float-left">
+      <span>Choose file</span>
+      <input type="file">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="image" placeholder="Upload your file" name = "inputImages">
+    </div>
+  </div>
+</form>
+</body>
+</html>
