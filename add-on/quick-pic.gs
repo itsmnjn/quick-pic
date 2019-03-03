@@ -28,6 +28,8 @@ function showSidebar() {
 
 function insertImage(id) {
     var doc = DocumentApp.getActiveDocument();
+    var body = doc.getBody();
+    var bodyWidth = (96 * body.getPageWidth()) / 72;
     var cursor = doc.getCursor();
 
     if (cursor) {
@@ -36,10 +38,28 @@ function insertImage(id) {
         var link = base + "retrieve/" + id;
 
         var response = UrlFetchApp.fetch(link);
-        var pic = response.getBlob();
-        var inlineImage = cursor.insertInlineImage(pic);
+        
+        if (response == "") {
+            return;
+        }
+        
+        var blob = response.getBlob();
+        
+        if (blob.getContentType() == "text/html") throw "Not an image";
+
+        var inlineImage = cursor.insertInlineImage(blob);
 
         if (!inlineImage) throw "Cannot insert text here.";
+        
+        var imageWidth = inlineImage.getWidth();
+        var imageHeight = inlineImage.getHeight();
+        var aspectRatio = imageWidth / imageHeight;
+        
+        if (imageWidth > bodyWidth) {
+            var idealWidth = bodyWidth / 2
+            inlineImage.setWidth(idealWidth);
+            inlineImage.setHeight(idealWidth / aspectRatio);
+        }
 
         var newCursor = doc.newPosition(
             cursor.getElement(),

@@ -44,8 +44,6 @@
                 var size = 150;
                 var href = "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + link;
                 
-                console.log(link);
-    
                 $("#get-started").after("<img src=" + href + " />");
                 $('#activate').click(function() {
                     activate(id);
@@ -56,7 +54,7 @@
         function activate(id) {
             var t = setInterval(function() {
                 runAddOn(id);
-            }, 5000);
+            }, 500);
 
             $(window).unload(function() {
                 clearInterval(t);
@@ -68,10 +66,16 @@
                 .withSuccessHandler(
                     function(returnSuccess, element) {
                         element.disabled = false;
+                        $("#error").remove();
                     })
                 .withFailureHandler(
                     function(msg, element) {
-                        showError(msg, $("#activate"));
+                        var existingError = $("#error");
+                        if (!existingError) {
+                            showError(msg, $("#activate"));
+                        } else if (existingError.text() != msg) {
+                            showError(msg, $("#activate"));
+                        }
                     }
                 )
                 .withUserObject(this)
