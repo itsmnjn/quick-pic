@@ -7,3 +7,5 @@ env/
 .gcloudignore
 .DS_Store
 .vscode
+
+.gitignore~
