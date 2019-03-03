@@ -11,7 +11,7 @@
   body{
     background-color:#007bff;
   }
-  
+
   input[type='file'] {
     color: transparent;
     outline:none;
@@ -43,7 +43,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" style="text-align:center;">
 	 <form method="POST" action="/upload/{{id}}" id="form" enctype="multipart/form-data" style="width: 100% !important" style="height:100% !important">
   <label class="btn btn-default btn-file">
 	 Add Image <input type=file name=file accept="image/*" id="file" style="width: 100% !important" style="height:100% !important">
@@ -51,7 +51,7 @@
 	 </form>
   </div>
   <script>
-  
+
   document.getElementById("file").onchange = function() {
     document.getElementById("form").submit();
   };
