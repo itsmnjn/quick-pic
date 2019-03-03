@@ -12,6 +12,12 @@ app.config["MONGO_URI"] = "mongodb://Admin:Password@insta-doc-pic-shard-00-00-cz
 mongo = PyMongo(app)
 db = mongo.cx["ids"]
 
+
+"""
+#Main path
+#returns a unique id string that identifies users
+
+"""
 @app.route("/")
 def genID():
     id = str(uuid.uuid4())
@@ -19,15 +25,28 @@ def genID():
     resp.headers["Access-Control-Allow-Origin"] = "*"
     return resp
 
+
+"""
+#User upload
+#Allows users to upload images. The form that submits on image 
+#upload sends a POST request to /upload/<id>
+
+"""
 @app.route("/user/<id>")
 def user(id):
     resp = make_response(render_template("index.html", id = id))
     return resp
 
+
+"""
+#Uploads image to database
+#Uploads the image sent through the POST request to a mongodb
+#collection with the users id as the collection name.
+
+"""
 @app.route("/upload/<id>", methods = ["POST"])
 def upload(id):
     coll = db[id]
-    app.logger.info("HELLO")
 
     responses = request.files.getlist("files")
     
@@ -38,6 +57,12 @@ def upload(id):
 
     return redirect(url_for("user", id = id))
 
+"""
+#Retrieves image from database
+#Retrieves the uploaded the image sent to the mongo database keyed
+#with the users id. Then deletes all the images it retrieves. 
+
+"""
 @app.route("/retrieve/<id>")
 def retrieve(id):
     coll = db[id]
@@ -55,6 +80,11 @@ def retrieve(id):
     resp.headers["Content-Type"] = contentType[0]
     
     return resp
+
+"""
+#Drops the database
+#Drops the user's collection
+"""
 
 @app.route("/done/<id>")
 def done(id):
