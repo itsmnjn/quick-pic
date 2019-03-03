@@ -56,5 +56,11 @@ def retrieve(id):
     
     return resp
 
+@app.route("/done/<id>")
+def done(id):
+    coll = db[id]
+    coll.drop()
+    return ""
+
 if __name__ == "__main__":
     app.run(debug = True, port = 8080)
