@@ -14,14 +14,17 @@ mongo = PyMongo(app)
 @app.route("/")
 def returnUniqueString():
 	#GENERATE UNIQUE ID
-	return '''localhost:5000/user/''' + str(uuid.uuid4())
+	id = str(uuid.uuid4())
+	return '''localhost:5000/user/''' + id
 
 @app.route("/user/<id>")
 def connect(id):
+	#coll = mongo.db[id]
 	return render_template("index.html", id=id)
 
 @app.route("/upload/<id>", methods=["POST"])
 def upload(id):
+	#coll = mongo.db[id]
 	app.logger.info("HELLO")
 	f = request.files['file']
 
@@ -30,12 +33,19 @@ def upload(id):
 	else:
 		print("FUCK", file=sys.stderr)
 	mongo.save_file(id, f)
+	#coll.insert({'name':f.filename, 'data':f})
 	print( "uploaded")
 	return redirect(url_for('connect', id=id))
 
 @app.route("/retrieve/<id>")
 def getUpload(id):
-	return mongo.send_file(id)
+	f= mongo.send_file(id)
+	return f
+@app.route("/delete/<id>")
+def delete(id):
+	coll = mongo.db['fs.files']
+	numDeleted  = coll.delete_many({'filename':id})
+	return "deleted"
 
 if __name__ == "__main__":
 	app.run(debug=True)
