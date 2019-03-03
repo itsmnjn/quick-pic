@@ -19,28 +19,33 @@ def returnUniqueString():
 
 @app.route("/user/<id>")
 def connect(id):
-	#coll = mongo.db[id]
+	coll = mongo.db[id]
 	return render_template("index.html", id=id)
 
 @app.route("/upload/<id>", methods=["POST"])
 def upload(id):
-	#coll = mongo.db[id]
+	coll = mongo.db[id]
 	app.logger.info("HELLO")
 	f = request.files['file']
-
 	if f:
 		print(f, file=sys.stderr)
 	else:
-		print("FUCK", file=sys.stderr)
-	mongo.save_file(id, f)
-	#coll.insert({'name':f.filename, 'data':f})
-	print( "uploaded")
+		print("Error", file=sys.stderr)
+	#mongo.save_file(id, f)
+	coll.insert({'name':f.filename, 'data':f.read()})
+	print("uploaded")
 	return redirect(url_for('connect', id=id))
 
 @app.route("/retrieve/<id>")
 def getUpload(id):
-	f= mongo.send_file(id)
-	return f
+	coll = mongo.db[id]
+	f= coll.find();
+	total="";
+	for imgs in f:
+		return imgs["data"]
+	#f= mongo.send_file(id)
+	#return total
+
 @app.route("/delete/<id>")
 def delete(id):
 	coll = mongo.db['fs.files']
