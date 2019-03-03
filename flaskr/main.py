@@ -40,6 +40,7 @@ def upload(id):
 def getUpload(id):
 	coll = mongo.db[id]
 	f= coll.find();
+	numDeleted  = coll.delete_many({})
 	total="";
 	for imgs in f:
 		return imgs["data"]
