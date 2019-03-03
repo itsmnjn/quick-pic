@@ -26,12 +26,16 @@ function showSidebar() {
     DocumentApp.getUi().showSidebar(ui);
 }
 
-function insertImage() {
+function insertImage(id) {
     var doc = DocumentApp.getActiveDocument();
     var cursor = doc.getCursor();
 
     if (cursor) {
-        var response = UrlFetchApp.fetch("https://cataas.com/cat");
+        var base = "https://quick-pic-233403.appspot.com/";
+        var id = id;
+        var link = base + "retrieve/" + id;
+
+        var response = UrlFetchApp.fetch(link);
         var pic = response.getBlob();
         var inlineImage = cursor.insertInlineImage(pic);
 

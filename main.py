@@ -27,11 +27,6 @@ def upload(id):
 	coll = mongo.db[id]
 	app.logger.info("HELLO")
 	f = request.files['file']
-	if f:
-		print(f, file=sys.stderr)
-	else:
-		print("Error", file=sys.stderr)
-	#mongo.save_file(id, f)
 	coll.insert({'name':f.filename, 'data':f.read()})
 	print("uploaded")
 	return redirect(url_for('connect', id=id))
@@ -53,4 +48,4 @@ def delete(id):
 	return "deleted " + str(numDeleted.deleted_count)
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=True, port=8080)

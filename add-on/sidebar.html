@@ -36,23 +36,34 @@
          * user's origin and destination language preferences if previously set.
          */
         $(function() {
-            $('#activate').click(activate);
-
-            var link = "example";
-            var size = 150;
-            var href = "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + link;
-            $("#get-started").after("<img src=" + href + " />");
+            var url = "https://quick-pic-233403.appspot.com/";
+            
+            $.get(url, function(data, status) {
+                var id = data;
+                var link = url + "user/" + id;
+                var size = 150;
+                var href = "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + link;
+                
+                console.log(link);
+    
+                $("#get-started").after("<img src=" + href + " />");
+                $('#activate').click(function() {
+                    activate(id);
+                });
+            });
         });
         
-        function activate() {
-            var t = setInterval(runAddOn, 5000);
+        function activate(id) {
+            var t = setInterval(function() {
+                runAddOn(id);
+            }, 5000);
 
             $(window).unload(function() {
                 clearInterval(t);
             });
         }
 
-        function runAddOn() {
+        function runAddOn(id) {
             google.script.run
                 .withSuccessHandler(
                     function(returnSuccess, element) {
@@ -64,7 +75,7 @@
                     }
                 )
                 .withUserObject(this)
-                .insertImage();
+                .insertImage(id);
         }
         
         function showError(msg, element) {
