@@ -35,12 +35,6 @@ def upload(id):
         filename = r.filename
         image = r.read()
         coll.insert_one({ "name": r.filename, "data": image })
-    
-    otherColls = db.list_collections()
-    for c in otherColls:
-        if c["name"] != id:
-            otherColl = db[c["name"]]
-            otherColl.drop()
 
     return redirect(url_for("user", id = id))
 
