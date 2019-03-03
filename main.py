@@ -41,7 +41,7 @@ def upload(id):
 @app.route("/retrieve/<id>")
 def retrieve(id):
     coll = db[id]
-    f = coll.find_one_and_delete({})
+    f = coll.find_one_and_delete({}, sort = [( "_id", 1 )]) # -1 sorts in descending order
 
     if not f:
         return ""
