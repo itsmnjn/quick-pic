@@ -48,8 +48,8 @@ def getUpload(id):
 
 @app.route("/delete/<id>")
 def delete(id):
-	coll = mongo.db['fs.files']
-	numDeleted  = coll.delete_many({'filename':id})
+	coll = mongo.db[id]
+	numDeleted  = coll.delete_many({})
 	return "deleted"
 
 if __name__ == "__main__":
