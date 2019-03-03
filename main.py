@@ -92,6 +92,10 @@ def done(id):
     coll.drop()
     return ""
 
+"""
+#Google authentication
+"""
+
 @app.route("/google52e661dd7d186531.html")
 def file():
     return render_template("google52e661dd7d186531.html")
