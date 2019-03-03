@@ -22,8 +22,6 @@
     <div class="sidebar branding-below">
         <p class="italics">Quickly insert pictures from your mobile device to right where your cursor is.</p>
         <p id="get-started">To get started, scan the QR code below.</p>
-        <p>Before uploading any pictures, click <b>Activate</b>.</p>
-        <button class="blue" id="activate">Activate</button>
         <hr />
         <p>Thanks for using Quick Pic!</p>
         <p>Made with ❤️ by Jacob Blindenbach, Matthew Bacon, and Eric Kim.</p>
@@ -41,9 +39,7 @@
                 var href = "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + link;
                 
                 $("#get-started").after("<img src=" + href + " />");
-                $('#activate').click(function() {
-                    activate(id);
-                });
+                activate(id);
             });
         });
         
@@ -54,6 +50,7 @@
 
             $(window).unload(function() {
                 var link = url + "done/" + id;
+                console.log(link);
                 $.get(link);
                 clearInterval(t);
             });
