@@ -6,38 +6,40 @@ import dns
 import mimetypes
 
 app = Flask(__name__)
-app.config['MONGO_DBNAME'] = 'insta-doc-pic'
+app.config["MONGO_DBNAME"] = "insta-doc-pic"
 app.config["MONGO_URI"] = "mongodb://Admin:Password@insta-doc-pic-shard-00-00-czey7.gcp.mongodb.net:27017,insta-doc-pic-shard-00-01-czey7.gcp.mongodb.net:27017,insta-doc-pic-shard-00-02-czey7.gcp.mongodb.net:27017/test?ssl=true&replicaSet=insta-doc-pic-shard-0&authSource=admin&retryWrites=true"
 
 mongo = PyMongo(app)
-db = mongo.cx['ids']
+db = mongo.cx["ids"]
 
 @app.route("/")
-def returnUniqueString():
-    #GENERATE UNIQUE ID
+def genID():
     id = str(uuid.uuid4())
     resp = make_response(id)
     resp.headers["Access-Control-Allow-Origin"] = "*"
     return resp
 
 @app.route("/user/<id>")
-def connect(id):
-    resp = make_response(render_template("index.html", id=id))
+def user(id):
+    resp = make_response(render_template("index.html", id = id))
     return resp
 
-@app.route("/upload/<id>", methods=["POST"])
+@app.route("/upload/<id>", methods = ["POST"])
 def upload(id):
     coll = db[id]
     app.logger.info("HELLO")
 
-    response = request.files['file']
-    image = response.read()
+    responses = request.files.getlist("files")
+    
+    for r in responses:
+        filename = r.filename
+        image = r.read()
+        coll.insert_one({ "name": r.filename, "data": image })
 
-    coll.insert_one({ 'name': response.filename, 'data': image })
-    return redirect(url_for('connect', id=id))
+    return redirect(url_for("user", id = id))
 
 @app.route("/retrieve/<id>")
-def getUpload(id):
+def retrieve(id):
     coll = db[id]
     f = coll.find_one_and_delete({})
 
@@ -55,4 +57,4 @@ def getUpload(id):
     return resp
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug = True, port = 8080)
