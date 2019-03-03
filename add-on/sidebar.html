@@ -46,7 +46,8 @@
         
         function activate() {
             var t = setInterval(runAddOn, 5000);
-            $(window).unload().click(function() {
+
+            $(window).unload(function() {
                 clearInterval(t);
             });
         }

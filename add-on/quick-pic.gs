@@ -27,16 +27,22 @@ function showSidebar() {
 }
 
 function insertImage() {
-    var cursor = DocumentApp.getActiveDocument().getCursor();
-    var response = UrlFetchApp.fetch("https://cataas.com/cat");
-    var pic = response.getAs("image/png");
+    var doc = DocumentApp.getActiveDocument();
+    var cursor = doc.getCursor();
 
-    cursor.insertInlineImage(pic);
+    if (cursor) {
+        var response = UrlFetchApp.fetch("https://cataas.com/cat");
+        var pic = response.getBlob();
+        var inlineImage = cursor.insertInlineImage(pic);
+
+        if (!inlineImage) throw "Cannot insert text here.";
+
+        var newCursor = doc.newPosition(
+            cursor.getElement(),
+            cursor.getOffset() + 1
+        );
+        doc.setCursor(newCursor);
+    } else {
+        throw "Cannot find a cursor.";
+    }
 }
-
-// function everyMinute(functionName) {
-//     ScriptApp.newTrigger(functionName)
-//         .timeBased()
-//         .everyMinutes(1)
-//         .create();
-// }
