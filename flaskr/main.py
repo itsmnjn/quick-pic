@@ -15,7 +15,7 @@ mongo = PyMongo(app)
 def returnUniqueString():
 	#GENERATE UNIQUE ID
 	id = str(uuid.uuid4())
-	return '''localhost:5000/user/''' + id
+	return id
 
 @app.route("/user/<id>")
 def connect(id):
@@ -50,7 +50,7 @@ def getUpload(id):
 def delete(id):
 	coll = mongo.db[id]
 	numDeleted  = coll.delete_many({})
-	return "deleted"
+	return "deleted " + str(numDeleted.deleted_count)
 
 if __name__ == "__main__":
 	app.run(debug=True)
