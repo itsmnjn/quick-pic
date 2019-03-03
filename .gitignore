@@ -5,4 +5,5 @@ env/
 .env.local
 .env.staging
 .gcloudignore
-.DS_Store.vscode
+.DS_Store
+.vscode
