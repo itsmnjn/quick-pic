@@ -1,64 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Web Interface</title>
-	  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <style>
-  body{
-  /* background-color:#007bff;*/
-	background: #4b6cb7; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #4b6cb7, #182848); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #4b6cb7, #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
+    <title>Quick Pic</title>
 
-  input[type='file'] {
-    color: transparent;
-    outline:none;
-    height: 50%;
-    width: 50%;
-    background: #007bff;
-    text-align: center;
-  }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <style>
+        html {
+            height: 100%;
+            font-size: 24px;
+        }
 
-  .btn-file {
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-file input[type=file] {
-    position: absolute !important;
-    top: 50% !important;
-    right: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 500px !important;
-    text-align: center;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: #007bff;
-    cursor: inherit;
-    display: block;
-}
-  </style>
+        body {
+            height: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .container {
+            height: 100%;
+
+            display: flex;
+            display: -webkit-box;
+            display: -ms-flexbox;
+
+            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            align-items: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+        }
+
+        p {
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        label {
+            display: block;
+            width: 50%;
+
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+
+            font-size: 1rem;
+            font-weight: 300;
+
+            border-radius: 0.25rem;
+            -webkit-border-radius: 0.25rem;
+            -moz-border-radius: 0.25rem;
+            -ms-border-radius: 0.25rem;
+            -o-border-radius: 0.25rem;
+
+            box-shadow: 0 2px 5px rgb(190, 190, 190);
+            -webkit-box-shadow: 0 2px 5px rgb(190, 190, 190);
+
+            cursor: pointer;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <div class="container" style="text-align:center;">
-	 <form method="POST" action="/upload/{{id}}" id="form" enctype="multipart/form-data" style="width: 100% !important" style="height:100% !important">
-  <label class="btn btn-default btn-file">
-	 Add Image <input type=file name=file accept="image/*" id="file" style="width: 100% !important" style="height:100% !important">
-  </label>
-	 </form>
-  </div>
-  <script>
+    <div class="container">
+        <div>
+            <p>⚡️ Quick Pic ⚡️</p>
+            <form method="POST" action="/upload/{{ id }}" id="form" enctype="multipart/form-data">
+                <label>
+                    <input type="file" name="files" accept="image/*" id="files" multiple="multiple" />
+                    Upload Pictures
+                </label>
+            </form>
+        </div>
+    </div>
 
-  document.getElementById("file").onchange = function() {
-    document.getElementById("form").submit();
-  };
-
-  </script>
+    <script>
+        document.getElementById("files").onchange = function() {
+            document.getElementById("form").submit();
+        };
+    </script>
 </body>
 </html>
