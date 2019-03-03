@@ -39,7 +39,7 @@ function insertImage(id) {
     var cursor = doc.getCursor();
 
     if (cursor) {
-        var base = "https://quick-pic-233403.appspot.com/";
+        var base = "https://www.quick-pic.net/";
         var id = id;
         var link = base + "retrieve/" + id;
 
