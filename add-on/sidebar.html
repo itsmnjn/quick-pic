@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <style>
+        .italics {
+            font-style: italic;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        button {
+            margin-bottom: 13px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar branding-below">
+        <p class="italics">Quickly insert pictures from your mobile device to right where your cursor is.</p>
+        <p id="get-started">To get started, scan the QR code below.</p>
+        <p>Before uploading any pictures, click <b>Activate</b>.</p>
+        <button class="blue" id="activate">Activate</button>
+        <hr />
+        <p>Thanks for using Quick Pic!</p>
+        <p>Made with ❤️ by Jacob Blindenbach, Matthew Bacon, and Eric Kim.</p>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        /**
+         * On document load, assign click handlers to each button and try to load the
+         * user's origin and destination language preferences if previously set.
+         */
+        $(function() {
+            $('#activate').click(activate);
+
+            var link = "example";
+            var size = 150;
+            var href = "https://api.qrserver.com/v1/create-qr-code/?size=" + size + "x" + size + "&data=" + link;
+            $("#get-started").after("<img src=" + href + " />");
+        });
+        
+        function activate() {
+            var t = setInterval(runAddOn, 5000);
+            $(window).unload().click(function() {
+                clearInterval(t);
+            });
+        }
+
+        function runAddOn() {
+            google.script.run
+                .withSuccessHandler(
+                    function(returnSuccess, element) {
+                        element.disabled = false;
+                    })
+                .withFailureHandler(
+                    function(msg, element) {
+                        showError(msg, $("#activate"));
+                    }
+                )
+                .withUserObject(this)
+                .insertImage();
+        }
+        
+        function showError(msg, element) {
+            var div = $('<div id="error" class="error">' + msg + '</div>');
+            $(element).after(div);
+        }
+    </script>
+  </body>
+</html>
