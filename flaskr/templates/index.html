@@ -7,22 +7,55 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script>
-    // window.onload=function(){
-    //   var submitBtn = document.getElementById("form");
-    //   var path = window.location.pathname;
-    //   //console.log(window.location)
-    //   path = path.substring(6,path.length);
-    //   //console.log(path);
-    //   submitBtn.action = "/upload/"+path;
-    // }
+  <style>
+  body{
+    background-color:#007bff;
+  }
+  
+  input[type='file'] {
+    color: transparent;
+    outline:none;
+    height: 50%;
+    width: 50%;
+    background: #007bff;
+    text-align: center;
+  }
 
-  </script>
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute !important;
+    top: 50% !important;
+    right: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 500px !important;
+    text-align: center;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: #007bff;
+    cursor: inherit;
+    display: block;
+}
+  </style>
 </head>
 <body>
-	<form method="POST" action="/upload/{{id}}" id="form" enctype="multipart/form-data">
-	  <input type=file name=file>
-	  <input type=submit value=Upload>
-	</form>
+  <div class="container">
+	 <form method="POST" action="/upload/{{id}}" id="form" enctype="multipart/form-data" style="width: 100% !important" style="height:100% !important">
+  <label class="btn btn-default btn-file">
+	 Add Image <input type=file name=file accept="image/*" id="file" style="width: 100% !important" style="height:100% !important">
+  </label>
+	 </form>
+  </div>
+  <script>
+  
+  document.getElementById("file").onchange = function() {
+    document.getElementById("form").submit();
+  };
+
+  </script>
 </body>
 </html>
