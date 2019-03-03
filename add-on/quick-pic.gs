@@ -29,7 +29,13 @@ function showSidebar() {
 function insertImage(id) {
     var doc = DocumentApp.getActiveDocument();
     var body = doc.getBody();
+    
     var bodyWidth = (96 * body.getPageWidth()) / 72;
+    var idealWidth = bodyWidth / 2;
+    
+    var bodyHeight = (96 * body.getPageHeight()) / 72;
+    var idealHeight = bodyHeight / 2;
+    
     var cursor = doc.getCursor();
 
     if (cursor) {
@@ -55,10 +61,16 @@ function insertImage(id) {
         var imageHeight = inlineImage.getHeight();
         var aspectRatio = imageWidth / imageHeight;
         
-        if (imageWidth > bodyWidth) {
-            var idealWidth = bodyWidth / 2
+        if (imageWidth > idealWidth) {
+            
             inlineImage.setWidth(idealWidth);
             inlineImage.setHeight(idealWidth / aspectRatio);
+        }
+        
+        if (imageHeight > idealHeight) {
+            
+            inlineImage.setHeight(idealHeight);
+            inlineImage.setWidth(idealHeight * aspectRatio);
         }
 
         var newCursor = doc.newPosition(
