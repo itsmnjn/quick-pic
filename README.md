@@ -1,5 +1,9 @@
 # Quick Pic
 
+Developed during and submitted to HooHacks, the University of Virginia's annual hackathon.
+
+**Won 2nd place in the *Best Education Hack* track!**
+
 Insert images taken or uploaded from your mobile device to your Google Doc, quick as lightning ⚡️
 
 Made with ❤️ by Jacob Blindenbach, Matthew Bacon, and Min Jun (Eric) Kim.
