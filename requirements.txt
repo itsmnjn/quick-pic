@@ -7,7 +7,7 @@
 asn1crypto==0.24.0
 cffi==1.12.2
 click==7.0
-cryptography==2.6.1
+cryptography==3.2
 dnspython==1.16.0
 flask-pymongo==2.2.0
 flask-socketio==3.3.1
